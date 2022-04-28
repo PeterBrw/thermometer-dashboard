@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get('/dashboard', controller.getDashboard)
 
+router.post('/dashboard', controller.postDashboard)
+
 module.exports = router;
