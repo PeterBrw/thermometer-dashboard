@@ -14,8 +14,14 @@ const getDashboard = (arg) => `
       <div id="chart"></div>
       <script src="./js/c3.js"></script>
       <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.js" integrity="sha512-/xb5+PNOA079FJkngKI2jvID5lyiqdHXaUUcfmzE0X0BdpkgzIWHC59LOG90a2jDcOyRsd1luOr24UCCAG8NNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
        <script>
-          console.log(${arg})
+          const socket = io("ws://localhost:3000")
+          
+          socket.on('hello', (arg) => {
+              console.log(arg)
+          })
+          
           var chart = c3.generate({
              data: {
                   columns: [
