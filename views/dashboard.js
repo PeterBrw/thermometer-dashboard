@@ -1,4 +1,4 @@
-const getDashboard = () => `
+const getDashboard = (arg) => `
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -15,6 +15,7 @@ const getDashboard = () => `
       <script src="./js/c3.js"></script>
       <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
        <script>
+          console.log(${arg})
           var chart = c3.generate({
              data: {
                   columns: [

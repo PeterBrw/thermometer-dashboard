@@ -6,7 +6,7 @@ exports.getDashboard = (req, res, next) => {
     const queryApi = client.getQueryApi(org)
 
     const fluxQuery =
-        'from(bucket:"thermometer-arduino") |> range(start: -1d) |> filter(fn: (r) => r._measurement == "temperature")'
+        'from(bucket:"thermometer-arduino") |> range(start: -1d) |> filter(fn: (r) => r._measurement == "temperature") |> sort() |> limit(n: 2) '
 
     queryApi.queryRows(fluxQuery, {
         next: (row, tableMeta) => {
@@ -16,16 +16,6 @@ exports.getDashboard = (req, res, next) => {
             console.log(
                 `${o._time} ${o._measurement} in '${o.location}' (${o.example}): ${o._field}=${o._value}`
             )
-
-            // alternatively, you can get only a specific column value without
-            // the need to create an object for every row
-            // console.log(tableMeta.get(row, '_time'))
-
-            // or you can create a proxy to get column values on demand
-            // const p = new Proxy<Record<string, any>>(row, tableMeta)
-            // console.log(
-            //  `${p._time} ${p._measurement} in '${p.location}' (${p.example}): ${p._field}=${p._value}`
-            // )
         },
         error: (error) => {
             console.error(error)
