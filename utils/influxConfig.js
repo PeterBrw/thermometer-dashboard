@@ -4,8 +4,9 @@ const config = require('../config')
 const token = config.token
 const org = config.org
 const bucket = config.bucket
+const url = config.url
 
-const client = new InfluxDB({ url: 'https://us-east-1-1.aws.cloud2.influxdata.com', token: token })
+const client = new InfluxDB({ url: url, token: token })
 
 module.exports = {
     client,
