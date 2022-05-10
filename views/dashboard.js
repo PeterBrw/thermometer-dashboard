@@ -19,33 +19,33 @@ const getDashboard = (arg) => `
           const socket = io("ws://localhost:3000")
           
           const in_temp = []
-          const out_temp = []
+          const out_temp = []   
+          const merge_temp = []
           
           socket.on('temperatures', (arg) => {
               if(arg._field === "in") {
-                  in_temp.push(arg)
+                  in_temp.push(arg._value)
               } else if (arg._field === "out") {
-                  out_temp.push(arg)
+                  out_temp.push(arg._value)
               }
-          })
-          
-          var chart = c3.generate({
-             data: {
+              
+              
+               var chart = c3.generate({
+                data: {
                   columns: [
-                    ['in', 0, 22.3, 22.1, 20, 21, 20.0],
-                    ['out', 0, 31.3, 28, 25, 27, 29]
+                    ['in', ...in_temp],
+                    ['out', ...out_temp]
                   ],
-              axes: {
+                   axes: {
                 data1: 'y',
                 data2: 'y2'
               }
             }
+          }) 
       });
-        console.log(in_temp)
-        console.log(out_temp)
     </script>
    </body>
 </html>
-`
+`;
 
-module.exports = getDashboard
+module.exports = getDashboard;
