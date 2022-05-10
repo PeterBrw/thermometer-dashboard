@@ -18,8 +18,22 @@ const getDashboard = (arg) => `
        <script>
           const socket = io("ws://localhost:3000")
           
-          socket.on('hello', (arg) => {
-              console.log(arg)
+          const in_temp = []
+          const out_temp = []
+          
+          socket.on('temperatures', (arg) => {
+              if(arg._field === "in") {
+                  in_temp.push(arg)
+              } else if (arg._field === "out") {
+                  out_temp.push(arg)
+              }
+              // arg.forEach(temp => {
+              //     if(temp._field === "in") {
+              //         in_temp.push(temp)
+              //     } else if(temp._field === "out") {
+              //         out_temp.push(temp)
+              //     }
+              // })
           })
           
           var chart = c3.generate({
@@ -34,6 +48,8 @@ const getDashboard = (arg) => `
               }
             }
       });
+        console.log(in_temp)
+        console.log(out_temp)
     </script>
    </body>
 </html>

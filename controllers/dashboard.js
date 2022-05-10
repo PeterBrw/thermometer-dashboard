@@ -3,29 +3,6 @@ const { Point } = require('@influxdata/influxdb-client')
 const { client, org, bucket } = require('../utils/influxConfig')
 
 exports.getDashboard = (req, res, next) => {
-    const queryApi = client.getQueryApi(org)
-
-    const fluxQuery =
-        'from(bucket:"thermometer-arduino") |> range(start: -1d) |> filter(fn: (r) => r._measurement == "temperature") |> sort() |> limit(n: 2) '
-
-    queryApi.queryRows(fluxQuery, {
-        next: (row, tableMeta) => {
-            // the following line creates an object for each row
-            const o = tableMeta.toObject(row)
-            // console.log(JSON.stringify(o, null, 2))
-            console.log(
-                `${o._time} ${o._measurement} in '${o.location}' (${o.example}): ${o._field}=${o._value}`
-            )
-        },
-        error: (error) => {
-            console.error(error)
-            console.log('\nFinished ERROR')
-        },
-        complete: () => {
-            console.log('\nFinished SUCCESS')
-        },
-    })
-
     return res.send(getDashboard())
 }
 
