@@ -27,13 +27,6 @@ const getDashboard = (arg) => `
               } else if (arg._field === "out") {
                   out_temp.push(arg)
               }
-              // arg.forEach(temp => {
-              //     if(temp._field === "in") {
-              //         in_temp.push(temp)
-              //     } else if(temp._field === "out") {
-              //         out_temp.push(temp)
-              //     }
-              // })
           })
           
           var chart = c3.generate({
