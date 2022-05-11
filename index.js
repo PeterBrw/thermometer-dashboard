@@ -32,12 +32,11 @@ io.on('connection', (socket) => {
     const queryApi = client.getQueryApi(org)
 
     const fluxQuery =
-        'from(bucket:"thermometer-arduino") |> range(start: -1d) |> filter(fn: (r) => r._measurement == "temperature") |> sort() |> limit(n: 5) '
+        'from(bucket:"thermometer-arduino") |> range(start: -1d) |> filter(fn: (r) => r._measurement == "temperature")'
 
     queryApi.queryRows(fluxQuery, {
         next: (row, tableMeta) => {
             const o = tableMeta.toObject(row)
-            // console.log(JSON.stringify(o, null, 2))
             console.log(
                 `${o._time} ${o._measurement} in '${o.location}' (${o.example}): ${o._field}=${o._value}`
             )
